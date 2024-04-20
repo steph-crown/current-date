@@ -16,21 +16,24 @@ class CurrentDate extends HTMLElement {
 
     const formattedDate = this.currentDate.toLocaleDateString("en-US", options);
 
-    shadowRoot.innerHTML = `
-    <style>
-      p {
-        text-align: center;
-        font-weight: normal;
-        padding: 1em;
-        margin: 0 0 2em 0;
-        background-color: #eee;
-        border: 1px solid #666;
-        color: red;
-      }
-    </style>
+    const template = document.getElementById("current-date");
+    const templateNode = template.content.cloneNode(true);
 
-    <p>${formattedDate}</p>`;
+    shadowRoot.appendChild(templateNode);
+
+    // insert the date into the shadow DOM.
+    const dateNode = shadowRoot.getElementById("date");
+    dateNode.textContent = formattedDate;
   }
 }
 
 customElements.define("current-date", CurrentDate);
+
+const template = document.getElementById("current-date");
+const templateNode = template.content.cloneNode(true);
+
+shadowRoot.appendChild(templateNode);
+
+// insert the date into the shadow DOM.
+const dateNode = shadowRoot.getElementById("date");
+dateNode.textContent = formattedDate;
